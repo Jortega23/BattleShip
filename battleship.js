@@ -1,18 +1,24 @@
 var view = {
-  displayMessage: (msg) => {
+  displayMessage(msg) {
     var messageArea = document.getElementById('messageArea');
     messageArea.innerHTML = msg;
   },
-  displayHit: (location) => {
+  displayHit(location) {
     var cell = document.getElementById(location);
     cell.setAttribute('class','hit')
   },
-  displayMiss: (location) => {
+  displayMiss(location) {
     var cell = document.getElementById(location);
     cell.setAttribute('class','miss');
   }
 }
 
+// view.displayMiss("00");
+// view.displayHit('34');
+// view.displayMiss("55");
+// view.displayHit('12');
+// view.displayMiss("25");
+// view.displayHit("26");
 
 
 var model = {
@@ -23,12 +29,12 @@ var model = {
   shipsSunk: 0,
   
   ships:  [ 
-  { locations:['06', '16', '26'], hits: ['', '', ''] },
-  { locations:['24', '34', '44'], hits: ['', '', ''] }, 
-  { locations:['00', '11', '12'], hits: ['', '', ''] }
+  { locations: ['06', '16', '26'], hits: ['', '', ''] },
+  { locations: ['24', '34', '44'], hits: ['', '', ''] }, 
+  { locations: ['00', '11', '12'], hits: ['', '', ''] }
   ],
 
-  fire: (guess) => {
+  fire(guess) {
     for(var i = 0; i < this.numShips; i++){
       var ship = this.ships[i];
       var index = ship.locations.indexOf(guess);
@@ -50,7 +56,7 @@ var model = {
     return false;
   },
 
-  isSunk: (ship) => {
+  isSunk(ship) {
     for(var i = 0; i < this.shipLength; i++){
       if(ship.hits[i] !== 'hit'){
         return false;
@@ -61,7 +67,9 @@ var model = {
 
 }
 
-function parseGuess(guess) {
+
+
+const parseGuess = (guess) => {
   var alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 
   if(guess === null || guess.length !== 2) {
@@ -85,7 +93,7 @@ function parseGuess(guess) {
 var controller = {
   guesses: 0,
 
-  processGuess: (guess) => {
+  processGuess(guess) {
     var location = parseGuess(guess);
     if (location) {
       this.guesses++;
