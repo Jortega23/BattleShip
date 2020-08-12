@@ -13,14 +13,6 @@ var view = {
   }
 }
 
-// view.displayMiss("00");
-// view.displayHit('34');
-// view.displayMiss("55");
-// view.displayHit('12');
-// view.displayMiss("25");
-// view.displayHit("26");
-
-
 var model = {
 
   boardSize: 7,
@@ -104,5 +96,31 @@ var controller = {
     }
   }
 }
+
+const init = () => {
+  var fireButton = document.getElementById('fireButton');
+  fireButton.onclick = handleFireButton
+  var guessInput = document.getElementById('guessInput')
+  guessInput.onkeypress = handleKeyPress;
+}
+
+const handleKeyPress = (e) => {
+  var fireButton = document.getElementById('fireButton');
+  if(e.keyCode === 13){
+    fireButton.click();
+    return false;
+  }
+}
+
+const handleFireButton = () => {
+  var guessInput = document.getElementById('guessInput')
+  var guess = guessInput.value;
+
+  controller.processGuess(guess);
+
+  guessInput.value = ''
+}
+
+window.onload = init;
 
 
